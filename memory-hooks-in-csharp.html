@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Хуки в C#: ревёрсинг и защита (Часть 0x01)  · 
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <!--<![endif]--> 
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Fira+Sans+Condensed&family=Cantarell&family=Noto+Sans:wght@300&family=Noto+Sans+Display:wght@200&display=swap" rel="stylesheet">
+
+
+    <link href="/theme/css/prism.css" rel="stylesheet" />
+        <link href="/theme/style.min.css?85c516a7" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+
+    <!-- <script src="https://hypothes.is/embed.js" async></script> -->
+
+
+ </head>
+
+<body>
+    <script src="/theme/css/prism.js"></script>
+<div id="layout" class="pure-g">
+
+<div class="sidebar pure-u-1 pure-u-md-5-24">
+    <nav id="sidebar">
+      <div class="sidebar-header">
+<div class="sitename"><a href="/">Reversing blog by weka</a></div>
+<div><small></small></div>
+<div>
+  <small>
+    <a href="/">Статьи</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/categories">Категории</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/tags">Тэги</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/archives">Архив записей</a>
+  </small>
+</div>
+<br>      </div>
+      <div class="sidebar-content">
+        <div class="toc"><div class="uppercase">Хуки в C#: ревёрсинг и защита (Часть 0x01)</div>
+<br>
+<div class="col-lg-3 hidden-xs hidden-sm">
+    <div id="toc"><ul><li><a class="toc-href" href="#" title="&KHcy;&ucy;&kcy;&icy; &vcy; C#: &rcy;&iecy;&vcy;&iocy;&rcy;&scy;&icy;&ncy;&gcy; &icy; &zcy;&acy;&shchcy;&icy;&tcy;&acy; (&CHcy;&acy;&scy;&tcy;&softcy; 0x01)">&KHcy;&ucy;&kcy;&icy; &vcy; C#: &rcy;&iecy;&vcy;&iocy;&rcy;&scy;&icy;&ncy;&gcy; &icy; &zcy;&acy;&shchcy;&icy;&tcy;&acy; (&CHcy;&acy;&scy;&tcy;&softcy; 0x01)</a><ul><li><a class="toc-href" href="#predislovie" title="&gt; &Pcy;&rcy;&iecy;&dcy;&icy;&scy;&lcy;&ocy;&vcy;&icy;&iecy;">&gt; &Pcy;&rcy;&iecy;&dcy;&icy;&scy;&lcy;&ocy;&vcy;&icy;&iecy;</a></li><li><a class="toc-href" href="#da-kto-takie-eti-vashi-khuki" title="&gt; &Dcy;&acy; &kcy;&tcy;&ocy; &tcy;&acy;&kcy;&icy;&iecy; &ecy;&tcy;&icy; &vcy;&acy;&shcy;&icy; &khcy;&ucy;&kcy;&icy;?">&gt; &Dcy;&acy; &kcy;&tcy;&ocy; &tcy;&acy;&kcy;&icy;&iecy; &ecy;&tcy;&icy; &vcy;&acy;&shcy;&icy; &khcy;&ucy;&kcy;&icy;?</a></li><li><a class="toc-href" href="#razbiraemsia-s-osnovami" title="&gt; &Rcy;&acy;&zcy;&bcy;&icy;&rcy;&acy;&iecy;&mcy;&scy;&yacy; &scy; &ocy;&scy;&ncy;&ocy;&vcy;&acy;&mcy;&icy;">&gt; &Rcy;&acy;&zcy;&bcy;&icy;&rcy;&acy;&iecy;&mcy;&scy;&yacy; &scy; &ocy;&scy;&ncy;&ocy;&vcy;&acy;&mcy;&icy;</a></li><li><a class="toc-href" href="#sobiraem-vsio-voedino" title="&gt; &Scy;&ocy;&bcy;&icy;&rcy;&acy;&iecy;&mcy; &vcy;&scy;&iocy; &vcy;&ocy;&iecy;&dcy;&icy;&ncy;&ocy;">&gt; &Scy;&ocy;&bcy;&icy;&rcy;&acy;&iecy;&mcy; &vcy;&scy;&iocy; &vcy;&ocy;&iecy;&dcy;&icy;&ncy;&ocy;</a></li><li><a class="toc-href" href="#zakliuchenie" title="&gt; &Zcy;&acy;&kcy;&lcy;&yucy;&chcy;&iecy;&ncy;&icy;&iecy;">&gt; &Zcy;&acy;&kcy;&lcy;&yucy;&chcy;&iecy;&ncy;&icy;&iecy;</a></li></ul></li></ul></div>
+</div>
+</div>
+      </div>
+      <!-- <div id="footer"><small>Powered by <a href="http://getpelican.com/">Pelican</a> and <a href="https://github.com/out-of-cheese-error/astrochelys">Astrochelys</a></small></div> -->
+    </nav>
+</div>
+
+<nav class="phone-header">
+<div class="sitename"><a href="/">Reversing blog by weka</a></div>
+<div><small></small></div>
+<div>
+  <small>
+    <a href="/">Статьи</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/categories">Категории</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/tags">Тэги</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/archives">Архив записей</a>
+  </small>
+</div>
+<br></nav>
+
+       <div class="content pure-u-1 pure-u-md-1-2" >
+           <article style="width: 100%">
+<section id="content" class="body">
+    <div class="marginnote">
+      <hr>
+      <div class="article-information">
+        <div class="article-information-heading uppercase">Опубликовано</div>
+        <time class="published" datetime="2022-12-29T00:00:00+05:00">
+          Чт 29 Декабрь 2022
+        </time>
+        <div class="article-information-heading uppercase">Категория</div>
+        <div>
+          <a href="/categories#C# Protection & Reversing-ref" class="article-information-custom">&nbsp;C# Protection & Reversing&nbsp;</a>
+        </div>
+        <div class="article-information-heading uppercase">Тэги</div>
+        <div>
+          <a href="/tags#c#-ref" class="article-information-custom">&nbsp;c#&nbsp;</a>
+          <a href="/tags#obfuscation-ref" class="article-information-custom">&nbsp;obfuscation&nbsp;</a>
+          <a href="/tags#hooks-ref" class="article-information-custom">&nbsp;hooks&nbsp;</a>
+        </div>
+        </div>
+      <hr>
+    </div>
+    <header><a href="/memory-hooks-in-csharp.html" rel="bookmark" title="Permalink to Хуки в C#: ревёрсинг и защита (Часть 0x01)">
+      <h1 class="article-title">
+        Хуки в C#: ревёрсинг и защита (Часть 0x01)
+      </h1>
+      <h3>
+      </h3>
+      <hr>
+    </a></header>
+    <div class="article-content">
+      <h2 id="predislovie"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Pcy;&rcy;&iecy;&dcy;&icy;&scy;&lcy;&ocy;&vcy;&icy;&iecy;</h2>
+<p>&Vcy; &ecy;&tcy;&ocy;&mcy; &ncy;&iecy;&bcy;&ocy;&lcy;&softcy;&shcy;&ocy;&mcy; &tscy;&icy;&kcy;&lcy;&iecy; &scy;&tcy;&acy;&tcy;&iecy;&jcy; &rcy;&iecy;&chcy;&softcy; &pcy;&ocy;&jcy;&dcy;&iocy;&tcy; &ocy; &tcy;&ocy;&mcy;, &kcy;&acy;&kcy; &icy; &zcy;&acy;&chcy;&iecy;&mcy; &mcy;&ocy;&zhcy;&ncy;&ocy; &khcy;&ucy;&kcy;&acy;&tcy;&softcy; &mcy;&iecy;&tcy;&ocy;&dcy;&ycy; &vcy; C#. &Ncy;&acy; &scy;&acy;&mcy;&ocy;&mcy; &dcy;&iecy;&lcy;&iecy; &ecy;&tcy;&ocy; &pcy;&ocy;&lcy;&iecy;&zcy;&ncy;&acy;&yacy; &shcy;&tcy;&ucy;&kcy;&acy;, &kcy;&ocy;&tcy;&ocy;&rcy;&acy;&yacy; &mcy;&ocy;&zhcy;&iecy;&tcy; &vcy;&ycy;&rcy;&ucy;&chcy;&icy;&tcy;&softcy; &vcy; &ncy;&iecy;&kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&khcy; &scy;&icy;&tcy;&ucy;&acy;&tscy;&icy;&yacy;&khcy;, &pcy;&ocy;&ecy;&tcy;&ocy;&mcy;&ucy; &zcy;&ncy;&acy;&tcy;&softcy; &tcy;&acy;&kcy;&ocy;&iecy; &ncy;&icy;&kcy;&ocy;&gcy;&dcy;&acy; &ncy;&iecy; &pcy;&ocy;&mcy;&iecy;&shcy;&acy;&iecy;&tcy;.</p>
+<h2 id="da-kto-takie-eti-vashi-khuki"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Dcy;&acy; &kcy;&tcy;&ocy; &tcy;&acy;&kcy;&icy;&iecy; &ecy;&tcy;&icy; &vcy;&acy;&shcy;&icy; &khcy;&ucy;&kcy;&icy;?</h2>
+<p>&Pcy;&ocy;&dcy; &scy;&lcy;&ocy;&vcy;&ocy;&mcy; <code>&khcy;&ucy;&kcy;</code> &vcy; &dcy;&acy;&ncy;&ncy;&ocy;&jcy; &scy;&tcy;&acy;&tcy;&softcy;&iecy; &pcy;&ocy;&ncy;&icy;&mcy;&acy;&iecy;&tcy;&scy;&yacy; &icy;&zcy;&mcy;&iecy;&ncy;&iecy;&ncy;&icy;&iecy; &mcy;&acy;&shcy;&icy;&ncy;&ncy;&ocy;&gcy;&ocy; &kcy;&ocy;&dcy;&acy; &scy; &tscy;&iecy;&lcy;&softcy;&yucy; &pcy;&iecy;&rcy;&iecy;&ncy;&acy;&pcy;&rcy;&acy;&vcy;&icy;&tcy;&softcy; &pcy;&ocy;&tcy;&ocy;&kcy; &vcy;&ycy;&pcy;&ocy;&lcy;&ncy;&iecy;&ncy;&icy;&yacy; &ncy;&acy; &tcy;&ocy;, &chcy;&tcy;&ocy; &ncy;&acy;&mcy; &ncy;&ucy;&zhcy;&ncy;&ocy;. </p>
+<blockquote>
+<p>💡&Gcy;&dcy;&iecy; &ecy;&tcy;&ocy; &mcy;&ocy;&zhcy;&iecy;&tcy; &pcy;&rcy;&icy;&gcy;&ocy;&dcy;&icy;&tcy;&softcy;&scy;&yacy;? &Ncy;&acy; &scy;&acy;&mcy;&ocy;&mcy; &dcy;&iecy;&lcy;&iecy; &vcy;&scy;&iocy; &vcy;&scy;&iecy;&gcy;&dcy;&acy; &zcy;&acy;&vcy;&icy;&scy;&icy;&tcy; &ocy;&tcy; &vcy;&acy;&shcy;&iecy;&jcy; &fcy;&acy;&ncy;&tcy;&acy;&zcy;&icy;&icy;. &Ncy;&acy;&pcy;&rcy;&icy;&mcy;&iecy;&rcy;, &vcy; &ocy;&bcy;&fcy;&ucy;&scy;&kcy;&acy;&tscy;&icy;&icy; &ecy;&tcy;&ocy; &mcy;&ocy;&zhcy;&iecy;&tcy; &zcy;&acy;&pcy;&ucy;&tcy;&acy;&tcy;&softcy; &rcy;&iecy;&vcy;&iocy;&rcy;&scy;&iecy;&rcy;&acy;, &acy; &dcy;&lcy;&yacy; &rcy;&iecy;&vcy;&iocy;&rcy;&scy;&iecy;&rcy;&acy; &ecy;&tcy;&ocy; &iecy;&shchcy;&iecy; &ocy;&dcy;&icy;&ncy; &icy;&ncy;&scy;&tcy;&rcy;&ucy;&mcy;&iecy;&ncy;&tcy; &vcy; &ocy;&bcy;&khcy;&ocy;&dcy;&iecy; &scy;&rcy;&iecy;&dcy;&scy;&tcy;&vcy; &zcy;&acy;&shchcy;&icy;&tcy;&ycy; &kcy;&ocy;&dcy;&acy;.</p>
+</blockquote>
+<h2 id="razbiraemsia-s-osnovami"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Rcy;&acy;&zcy;&bcy;&icy;&rcy;&acy;&iecy;&mcy;&scy;&yacy; &scy; &ocy;&scy;&ncy;&ocy;&vcy;&acy;&mcy;&icy;</h2>
+<p>&Dcy;&acy;&vcy;&acy;&jcy;&tcy;&iecy; &ncy;&acy;&chcy;&ncy;&iocy;&mcy; &scy; &kcy;&iecy;&jcy;&scy;&acy;, &vcy; &kcy;&ocy;&tcy;&ocy;&rcy;&ocy;&mcy; &bcy;&ucy;&dcy;&iecy;&mcy; &icy;&scy;&pcy;&ocy;&lcy;&softcy;&zcy;&ocy;&vcy;&acy;&tcy;&softcy; &khcy;&ucy;&kcy; &dcy;&lcy;&yacy; &ocy;&bcy;&khcy;&ocy;&dcy;&acy; <code>Environment.Exit</code>. &Dcy;&lcy;&yacy; &dcy;&acy;&ncy;&ncy;&ocy;&gcy;&ocy; &pcy;&rcy;&icy;&mcy;&iecy;&rcy;&acy; &scy;&ocy;&zcy;&dcy;&acy;&dcy;&icy;&mcy; &tcy;&iecy;&scy;&tcy;&ocy;&vcy;&ocy;&iecy; &pcy;&rcy;&icy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&iecy;, &ncy;&acy;&dcy; &kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&mcy; &bcy;&ucy;&dcy;&iecy;&mcy; &icy;&zcy;&dcy;&iecy;&vcy;&acy;&tcy;&softcy;&scy;&yacy;. &Acy; &chcy;&tcy;&ocy;&bcy;&ycy; &bcy;&ycy;&lcy;&ocy; &iecy;&shchcy;&iocy; &icy;&ncy;&tcy;&iecy;&rcy;&iecy;&scy;&ncy;&iecy;&iecy;, &dcy;&ocy;&bcy;&acy;&vcy;&icy;&mcy; &vcy; &ncy;&iecy;&gcy;&ocy; &ldquo;&scy;&rcy;&ocy;&kcy; &gcy;&ocy;&dcy;&ncy;&ocy;&scy;&tcy;&icy;&rdquo;.</p>
+<details class="spoiler">
+<summary>📝 &Kcy;&ocy;&dcy; <p class="dark-text" style="font-size: 18px;">&nbsp;[&Scy;#]</p></summary>
+<pre><code class="language-cs">static void Main(string[] args)
+{
+    Console.WriteLine("[TestApp1] &Zcy;&acy;&pcy;&ucy;&scy;&kcy; &pcy;&rcy;&ocy;&vcy;&iecy;&rcy;&kcy;&icy; &vcy;&rcy;&iecy;&mcy;&iecy;&ncy;&icy;..");
+
+    // &Icy;&mcy;&icy;&tcy;&icy;&rcy;&ucy;&iecy;&mcy; &icy;&scy;&tcy;&iecy;&chcy;&iecy;&ncy;&icy;&iecy; &scy;&rcy;&ocy;&kcy;&acy; &icy;&scy;&pcy;&ocy;&lcy;&softcy;&zcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy; &lcy;&icy;&tscy;&iecy;&ncy;&zcy;&icy;&icy;
+    if (DateTime.Now &gt; new DateTime(2018, 5, 15))
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("[TestApp1] &Lcy;&icy;&tscy;&iecy;&ncy;&zcy;&icy;&yacy; &pcy;&ocy;&dcy;&ocy;&shcy;&lcy;&acy; &kcy; &kcy;&ocy;&ncy;&tscy;&ucy;!");
+        Console.ForegroundColor = ConsoleColor.White;
+        Environment.Exit(0);
+    }
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("[TestApp1] &Lcy;&icy;&tscy;&iecy;&ncy;&zcy;&icy;&yacy; &ucy;&scy;&pcy;&iecy;&shcy;&ncy;&ocy; &pcy;&rcy;&ocy;&vcy;&iecy;&rcy;&iecy;&ncy;&acy;!");
+    Console.ForegroundColor = ConsoleColor.White;
+}</code></pre>
+</details>
+<p>&Ocy;&chcy;&iecy;&ncy;&softcy; &pcy;&rcy;&ocy;&scy;&tcy;&iecy;&ncy;&softcy;&kcy;&icy;&jcy; &kcy;&ocy;&dcy;, &kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&jcy; &ncy;&iecy; &pcy;&rcy;&ocy;&jcy;&dcy;&iecy;&tcy; &pcy;&rcy;&ocy;&vcy;&iecy;&rcy;&kcy;&ucy; &ldquo;&vcy;&rcy;&iecy;&mcy;&iecy;&ncy;&iecy;&mcy;&rdquo; &pcy;&rcy;&icy; &zcy;&acy;&pcy;&ucy;&scy;&kcy;&iecy;.</p>
+<div style="text-align:center"><a href="/images/hook-tutorial/1.PNG"><img alt="a" class="img-resize" src="/images/hook-tutorial/1.PNG"/></a><br/><p class="light-dark-text" style="font-size: 16px;">&Pcy;&rcy;&icy; &zcy;&acy;&pcy;&ucy;&scy;&kcy;&iecy; &pcy;&ocy;&lcy;&ucy;&chcy;&acy;&iecy;&mcy; &scy;&ocy;&ocy;&bcy;&shchcy;&iecy;&ncy;&icy;&iecy; &ocy;&bcy; &ocy;&kcy;&ocy;&ncy;&chcy;&acy;&ncy;&icy;&icy; &lcy;&icy;&tscy;&iecy;&ncy;&zcy;&icy;&icy;</p></div>
+<!-- астериск******* -->
+<p>&Acy; &tcy;&iecy;&pcy;&iecy;&rcy;&softcy; &dcy;&acy;&vcy;&acy;&jcy;&tcy;&iecy; &pcy;&rcy;&iecy;&dcy;&scy;&tcy;&acy;&vcy;&icy;&mcy;, &chcy;&tcy;&ocy; &vcy; &khcy;&ocy;&dcy;&iecy; &icy;&zcy;&ucy;&chcy;&iecy;&ncy;&icy;&yacy; &dcy;&acy;&ncy;&ncy;&ocy;&gcy;&ocy; &fcy;&acy;&jcy;&lcy;&acy; &mcy;&ycy; &ncy;&acy;&shcy;&lcy;&icy; &ocy;&chcy;&iecy;&ncy;&softcy; &scy;&lcy;&ocy;&zhcy;&ncy;&ycy;&jcy; &acy;&ncy;&tcy;&icy;&tcy;&acy;&mcy;&pcy;&iecy;&rcy;*, &rcy;&acy;&zcy;&bcy;&icy;&rcy;&acy;&tcy;&softcy;&scy;&yacy; &vcy; &kcy;&ocy;&tcy;&ocy;&rcy;&ocy;&mcy; &ncy;&acy;&mcy; &ncy;&iecy; &ocy;&chcy;&iecy;&ncy;&softcy; &khcy;&ocy;&chcy;&iecy;&tcy;&scy;&yacy;, &acy; &scy;&dcy;&iecy;&lcy;&acy;&tcy;&softcy; &chcy;&tcy;&ocy;-&tcy;&ocy; &ncy;&ucy;&zhcy;&ncy;&ocy;. &Icy; &vcy;&ocy;&tcy; &tcy;&ucy;&tcy; &mcy;&ycy; &mcy;&ocy;&zhcy;&iecy;&mcy; &khcy;&ucy;&kcy;&ncy;&ucy;&tcy;&softcy; <code>Environment.Exit</code>.</p>
+<blockquote>
+<p>&Acy;&ncy;&tcy;&icy;&tcy;&acy;&mcy;&pcy;&iecy;&rcy; &mdash; &ecy;&tcy;&ocy; &zcy;&acy;&shchcy;&icy;&tcy;&acy; &ocy;&tcy; &icy;&zcy;&mcy;&iecy;&ncy;&iecy;&ncy;&icy;&yacy; &kcy;&ocy;&dcy;&acy;.</p>
+</blockquote>
+<p>&Scy;&ncy;&acy;&chcy;&acy;&lcy;&acy; &ncy;&acy;&mcy; &ncy;&ucy;&zhcy;&ncy;&ocy; &ncy;&acy;&pcy;&icy;&scy;&acy;&tcy;&softcy; &mcy;&iecy;&tcy;&ocy;&dcy;, &kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&jcy; &scy; &pcy;&ocy;&mcy;&ocy;&shchcy;&softcy;&yucy; &pcy;&acy;&tcy;&chcy;&acy; &pcy;&acy;&mcy;&yacy;&tcy;&icy; &bcy;&ucy;&dcy;&iecy;&tcy; &pcy;&iecy;&rcy;&iecy;&ncy;&ocy;&scy;&icy;&tcy;&softcy; &pcy;&ocy;&tcy;&ocy;&kcy; &vcy;&ycy;&pcy;&ocy;&lcy;&ncy;&iecy;&ncy;&icy;&yacy; &vcy; &dcy;&rcy;&ucy;&gcy;&ocy;&iecy; &mcy;&iecy;&scy;&tcy;&ocy;. &Dcy;&lcy;&yacy; &ecy;&tcy;&ocy;&gcy;&ocy; &ocy;&pcy;&rcy;&iecy;&dcy;&iecy;&lcy;&icy;&mcy;&scy;&yacy;, &chcy;&tcy;&ocy; &mcy;&ycy; &bcy;&ucy;&dcy;&iecy;&mcy; &pcy;&icy;&scy;&acy;&tcy;&softcy; &vcy; &pcy;&acy;&mcy;&yacy;&tcy;&softcy;:</p>
+<details class="spoiler">
+<summary>📝 &Kcy;&ocy;&dcy; <p class="dark-text" style="font-size: 18px;">&nbsp;[ASM]</p></summary>
+<pre><code class="language-nasm">movabs r11, 0x0000000000000000 ; &Pcy;&ocy;&mcy;&iecy;&shchcy;&acy;&iecy;&mcy; &acy;&dcy;&rcy;&iecy;&scy; &vcy; &rcy;&iecy;&gcy;&icy;&scy;&tcy;&rcy;
+jmp r11 ; &Vcy;&ycy;&pcy;&ocy;&lcy;&ncy;&yacy;&iecy;&mcy; &pcy;&iecy;&rcy;&iecy;&khcy;&ocy;&dcy;</code></pre>
+</details>
+<p>&Vcy;&scy;&iocy; &dcy;&ocy;&scy;&tcy;&acy;&tcy;&ocy;&chcy;&ncy;&ocy; &pcy;&rcy;&ocy;&scy;&tcy;&ocy;!</p>
+<p>&Tcy;&iecy;&pcy;&iecy;&rcy;&softcy; &dcy;&rcy;&ucy;&gcy;&ocy;&jcy; &vcy;&ocy;&pcy;&rcy;&ocy;&scy;: &acy; &kcy;&acy;&kcy;&ocy;&iecy; &mcy;&iecy;&scy;&tcy;&ocy; &mcy;&ycy; &bcy;&ucy;&dcy;&iecy;&mcy; &pcy;&acy;&tcy;&chcy;&icy;&tcy;&softcy;? &Lcy;&ocy;&gcy;&icy;&chcy;&ncy;&ocy; &pcy;&rcy;&iecy;&dcy;&pcy;&ocy;&lcy;&ocy;&zhcy;&icy;&tcy;&softcy;, &chcy;&tcy;&ocy; &ncy;&acy;&chcy;&acy;&lcy;&ocy; &tcy;&iecy;&lcy;&acy; &mcy;&iecy;&tcy;&ocy;&dcy;&acy;. &Pcy;&ocy;&lcy;&ucy;&chcy;&icy;&tcy;&softcy; &ucy;&kcy;&acy;&zcy;&acy;&tcy;&iecy;&lcy;&softcy; &ncy;&acy; &ncy;&iecy;&gcy;&ocy; &mcy;&ocy;&zhcy;&ncy;&ocy; &scy; &pcy;&ocy;&mcy;&ocy;&shchcy;&softcy;&yucy; <code>GetFunctionPointer()</code>. &Vcy;&ycy;&gcy;&lcy;&yacy;&dcy;&iecy;&tcy;&softcy; &ecy;&tcy;&ocy; &bcy;&ucy;&dcy;&iecy;&tcy; &pcy;&rcy;&icy;&mcy;&iecy;&rcy;&ncy;&ocy; &tcy;&acy;&kcy;:</p>
+<details class="spoiler">
+<summary>📝 &Kcy;&ocy;&dcy; <p class="dark-text" style="font-size: 18px;">&nbsp;[&Scy;#]</p></summary>
+<pre><code class="language-cs">var exitMethodAddr = typeof(Environment).GetMethod("Exit").MethodHandle.GetFunctionPointer();
+var customMethodAddr = typeof(HookVoidExample).GetMethod("HookedExit").MethodHandle.GetFunctionPointer();</code></pre>
+</details>
+<p>&Pcy;&ocy;&scy;&lcy;&iecy;&dcy;&ncy;&icy;&jcy; &kcy;&ucy;&scy;&ocy;&chcy;&iecy;&kcy; &ncy;&acy;&shcy;&iecy;&gcy;&ocy; &pcy;&acy;&zcy;&lcy;&acy; &mdash; &ecy;&tcy;&ocy; &mcy;&iecy;&tcy;&ocy;&dcy;, &kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&jcy; &bcy;&ucy;&dcy;&iecy;&tcy; &pcy;&acy;&tcy;&chcy;&icy;&tcy;&softcy; &tcy;&iecy;&lcy;&ocy;, &icy;&scy;&pcy;&ocy;&lcy;&softcy;&zcy;&ucy;&yacy; &ucy;&kcy;&acy;&zcy;&acy;&tcy;&iecy;&lcy;&icy;.</p>
+<details class="spoiler">
+<summary>📝 &Kcy;&ocy;&dcy; <p class="dark-text" style="font-size: 18px;">&nbsp;[&Scy;#]</p></summary>
+<pre><code class="language-cs">public static void SetHook(IntPtr originalAddress, IntPtr hookedAddress)
+{
+    // &Scy;&ncy;&acy;&chcy;&acy;&lcy;&acy; &rcy;&acy;&zcy;&bcy;&lcy;&ocy;&kcy;&icy;&rcy;&ucy;&iecy;&mcy; &pcy;&acy;&mcy;&yacy;&tcy;&softcy; &scy; &pcy;&ocy;&mcy;&ocy;&shchcy;&softcy;&yucy; WinAPI
+    VirtualProtect(originalAddress, 12u, 64u, out var _);
+
+    // movabs r11
+    Marshal.WriteByte(originalAddress, 0, 0x49);
+    Marshal.WriteByte(originalAddress, 1, 0xBB);
+
+    // &Scy; &tcy;&rcy;&iecy;&tcy;&softcy;&iecy;&gcy;&ocy; &pcy;&ocy; &dcy;&iecy;&scy;&yacy;&tcy;&ycy;&jcy; &bcy;&acy;&jcy;&tcy; &ncy;&acy;&khcy;&ocy;&dcy;&icy;&tcy;&scy;&yacy; 64-&bcy;&icy;&tcy;&ncy;&ycy;&jcy; &ucy;&kcy;&acy;&zcy;&acy;&tcy;&iecy;&lcy;&softcy;
+    Marshal.WriteInt64(originalAddress, 2, hookedAddress.ToInt64());
+
+    // jmp r11
+    Marshal.WriteByte(originalAddress, 10, 0x41);
+    Marshal.WriteByte(originalAddress, 11, 0xFF);
+    Marshal.WriteByte(originalAddress, 12, 0xE3);
+}</code></pre>
+</details>
+<p>&Scy; &pcy;&ocy;&mcy;&ocy;&shchcy;&softcy;&yucy; <code>Marshal.WriteByte</code> &icy; <code>Marshal.WriteInt64</code> &mcy;&ycy; &mcy;&ocy;&dcy;&icy;&fcy;&icy;&tscy;&icy;&rcy;&ucy;&iecy;&mcy; &pcy;&acy;&mcy;&yacy;&tcy;&softcy;, &zcy;&acy;&pcy;&icy;&scy;&ycy;&vcy;&acy;&yacy; &mcy;&acy;&shcy;&icy;&ncy;&ncy;&ycy;&jcy; &kcy;&ocy;&dcy; &pcy;&rcy;&yacy;&mcy;&ocy; &pcy;&ocy;&vcy;&iecy;&rcy;&khcy; &scy;&ucy;&shchcy;&iecy;&scy;&tcy;&vcy;&ucy;&yucy;&shchcy;&iecy;&gcy;&ocy; &tcy;&iecy;&lcy;&acy; &mcy;&iecy;&tcy;&ocy;&dcy;&acy;.</p>
+<blockquote>
+<p>&Kcy; &scy;&ocy;&zhcy;&acy;&lcy;&iecy;&ncy;&icy;&yucy;, &dcy;&acy;&ncy;&ncy;&ycy;&jcy; &mcy;&iecy;&tcy;&ocy;&dcy; &ucy;&scy;&tcy;&acy;&ncy;&ocy;&vcy;&kcy;&icy; &khcy;&ucy;&kcy;&acy; &rcy;&acy;&bcy;&ocy;&tcy;&acy;&iecy;&tcy; &tcy;&ocy;&lcy;&softcy;&kcy;&ocy; &ncy;&acy; .Net Framawork &icy; &ncy;&iecy; &rcy;&acy;&bcy;&ocy;&tcy;&acy;&iecy;&tcy; &ncy;&acy; .Net Core.</p>
+</blockquote>
+<h2 id="sobiraem-vsio-voedino"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Scy;&ocy;&bcy;&icy;&rcy;&acy;&iecy;&mcy; &vcy;&scy;&iocy; &vcy;&ocy;&iecy;&dcy;&icy;&ncy;&ocy;</h2>
+<p>&Tcy;&iecy;&pcy;&iecy;&rcy;&softcy;, &kcy;&ocy;&gcy;&dcy;&acy; &mcy;&ycy; &rcy;&acy;&zcy;&ocy;&bcy;&rcy;&acy;&lcy;&icy;&scy;&softcy;, &kcy;&acy;&kcy; &icy; &chcy;&tcy;&ocy; &dcy;&iecy;&lcy;&acy;&iecy;&tcy;&scy;&yacy;, &mcy;&ocy;&zhcy;&iecy;&mcy; &ocy;&bcy;&hardcy;&iecy;&dcy;&icy;&ncy;&icy;&tcy;&softcy; &vcy;&scy;&iecy; &kcy;&ucy;&scy;&ocy;&chcy;&kcy;&icy; &vcy; &iecy;&dcy;&icy;&ncy;&ocy;&iecy; &tscy;&iecy;&lcy;&ocy;&iecy;:</p>
+<details class="spoiler">
+<summary>📝 &Kcy;&ocy;&dcy; <p class="dark-text" style="font-size: 18px;">&nbsp;[&Scy;#]</p></summary>
+<pre><code class="language-cs">public static void Run()
+{
+    Console.WriteLine("[HookVoidExample] &Ucy;&scy;&tcy;&acy;&ncy;&acy;&vcy;&lcy;&icy;&vcy;&acy;&iecy;&mcy; &khcy;&ucy;&kcy; &ncy;&acy; Environment.Exit()...");
+
+    // &Pcy;&ocy;&lcy;&ucy;&chcy;&acy;&iecy;&mcy; &khcy;&ecy;&ncy;&dcy;&lcy;&ycy; &mcy;&iecy;&tcy;&ocy;&dcy;&ocy;&vcy;
+    var exitMethodHandle = typeof(Environment).GetMethod("Exit").MethodHandle;
+    var customMethodHandle = typeof(HookVoidExample).GetMethod("HookedExit").MethodHandle;
+
+    // &Pcy;&iecy;&rcy;&iecy;&dcy; &rcy;&acy;&bcy;&ocy;&tcy;&ocy;&jcy; &scy; &vcy;&ncy;&ucy;&tcy;&rcy;&iecy;&ncy;&ncy;&ocy;&scy;&tcy;&yacy;&mcy;&icy; &ncy;&acy; &vcy;&scy;&yacy;&kcy;&icy;&jcy; &scy;&lcy;&ucy;&chcy;&acy;&jcy; &ucy;&dcy;&ocy;&scy;&tcy;&ocy;&vcy;&iecy;&rcy;&icy;&mcy;&scy;&yacy;,
+    // &chcy;&tcy;&ocy; &kcy;&ocy;&mcy;&pcy;&icy;&lcy;&yacy;&tscy;&icy;&yacy; &mcy;&iecy;&tcy;&ocy;&dcy;&ocy;&vcy; &pcy;&rcy;&ocy;&icy;&zcy;&ocy;&shcy;&lcy;&acy; (&icy;&ncy;&acy;&chcy;&iecy; &scy;&kcy;&ocy;&mcy;&pcy;&icy;&lcy;&icy;&rcy;&ucy;&iecy;&mcy; &icy;&khcy;)
+    RuntimeHelpers.PrepareMethod(exitMethodHandle);
+    RuntimeHelpers.PrepareMethod(customMethodHandle);
+
+    // &Ucy;&scy;&tcy;&acy;&ncy;&ocy;&vcy;&icy;&mcy; &khcy;&ucy;&kcy;
+    SetHook(exitMethodHandle.GetFunctionPointer(), customMethodHandle.GetFunctionPointer());
+
+    Console.WriteLine("[HookVoidExample] &KHcy;&ucy;&kcy; &ucy;&scy;&pcy;&iecy;&shcy;&ncy;&ocy; &ucy;&scy;&tcy;&acy;&ncy;&ocy;&vcy;&lcy;&iecy;&ncy;!");
+    Console.WriteLine("[HookVoidExample] &Zcy;&acy;&pcy;&ucy;&scy;&kcy;&acy;&iecy;&mcy; &tcy;&iecy;&scy;&tcy;&ocy;&vcy;&ocy;&iecy; &pcy;&rcy;&icy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&iecy;...\n");
+
+    // &Zcy;&acy;&pcy;&ucy;&scy;&kcy;&acy;&iecy;&mcy; &ncy;&acy;&shcy;&iecy; &pcy;&rcy;&icy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&iecy; &dcy;&lcy;&yacy; &icy;&zcy;&dcy;&iecy;&vcy;&acy;&tcy;&iecy;&lcy;&softcy;&scy;&tcy;&vcy;, &chcy;&tcy;&ocy;&bcy;&ycy;
+    // &zcy;&vcy;&iecy;&rcy;&scy;&kcy;&icy; &ncy;&acy;&dcy; &ncy;&icy;&mcy; &pcy;&ocy;&icy;&zcy;&dcy;&iecy;&vcy;&acy;&tcy;&softcy;&scy;&yacy;
+    Assembly.LoadFrom("TestApp1.exe").EntryPoint.Invoke(0, new[] { new string[] { "" } });
+
+    Console.WriteLine("\n[HookVoidExample] &Pcy;&rcy;&icy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&iecy; &bcy;&ycy;&lcy;&ocy; &zcy;&acy;&kcy;&rcy;&ycy;&tcy;&ocy;!");
+}
+
+// &Pcy;&ocy;&tcy;&ocy;&kcy; &icy;&zcy; Environment.Exit &bcy;&ucy;&dcy;&iecy;&tcy; &pcy;&iecy;&rcy;&iecy;&ncy;&acy;&pcy;&rcy;&acy;&vcy;&lcy;&iecy;&ncy; &scy;&yucy;&dcy;&acy;
+// &Pcy;&rcy;&ocy;&scy;&tcy;&ocy; &lcy;&ocy;&gcy;&gcy;&icy;&rcy;&ucy;&iecy;&mcy; &vcy;&ycy;&zcy;&ocy;&vcy;, &vcy;&ycy;&khcy;&ocy;&dcy;&icy;&tcy;&softcy; &icy;&zcy; &pcy;&rcy;&ocy;&gcy;&rcy;&acy;&mcy;&mcy;&ycy; &ncy;&iecy; &bcy;&ucy;&dcy;&iecy;&mcy;
+public static void HookedExit(int code)
+{
+    Console.WriteLine($"[HookVoidExample] &Pcy;&rcy;&ocy;&icy;&zcy;&ocy;&shcy;&iecy;&lcy; &vcy;&ycy;&zcy;&ocy;&vcy; Environment.Exit({code})! &Icy;&gcy;&ncy;&ocy;&rcy;&icy;&rcy;&ucy;&iecy;&mcy;...");
+    //Environment.Exit(code + 1);
+}
+
+public static void SetHook(IntPtr originalAddress, IntPtr hookedAddress)
+{
+    // &Scy;&ncy;&acy;&chcy;&acy;&lcy;&acy; &rcy;&acy;&zcy;&bcy;&lcy;&ocy;&kcy;&icy;&rcy;&ucy;&iecy;&mcy; &pcy;&acy;&mcy;&yacy;&tcy;&softcy; &scy; &pcy;&ocy;&mcy;&ocy;&shchcy;&softcy;&yucy; WinAPI
+    VirtualProtect(originalAddress, 12u, 64u, out var _);
+
+    // movabs r11
+    Marshal.WriteByte(originalAddress, 0, 0x49);
+    Marshal.WriteByte(originalAddress, 1, 0xBB);
+
+    // &Scy; &tcy;&rcy;&iecy;&tcy;&softcy;&iecy;&gcy;&ocy; &pcy;&ocy; &dcy;&iecy;&scy;&yacy;&tcy;&ycy;&jcy; &bcy;&acy;&jcy;&tcy; &ncy;&acy;&khcy;&ocy;&dcy;&icy;&tcy;&scy;&yacy; 64-&bcy;&icy;&tcy;&ncy;&ycy;&jcy; &ucy;&kcy;&acy;&zcy;&acy;&tcy;&iecy;&lcy;&softcy;
+    Marshal.WriteInt64(originalAddress, 2, hookedAddress.ToInt64());
+
+    // jmp r11
+    Marshal.WriteByte(originalAddress, 10, 0x41);
+    Marshal.WriteByte(originalAddress, 11, 0xFF);
+    Marshal.WriteByte(originalAddress, 12, 0xE3);
+}</code></pre>
+</details>
+<p>&Pcy;&ocy;&scy;&lcy;&iecy; &zcy;&acy;&pcy;&ucy;&scy;&kcy;&acy; &vcy;&icy;&dcy;&icy;&mcy; &tcy;&ocy;, &chcy;&tcy;&ocy; &icy; &ocy;&zhcy;&icy;&dcy;&acy;&lcy;&icy;:</p>
+<div style="text-align:center"><a href="/images/hook-tutorial/2.PNG"><img alt="a" class="img-resize" src="/images/hook-tutorial/2.PNG"/></a><br/><p class="light-dark-text" style="font-size: 16px;">&Ucy;&scy;&pcy;&iecy;&shcy;&ncy;&ycy;&jcy; &ocy;&bcy;&khcy;&ocy;&dcy; &zcy;&acy;&kcy;&rcy;&ycy;&tcy;&icy;&yacy; &pcy;&rcy;&ocy;&gcy;&rcy;&acy;&mcy;&mcy;&ycy; </p></div>
+<p>&Pcy;&rcy;&ocy;&fcy;&icy;&tcy;!</p>
+<h2 id="zakliuchenie"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Zcy;&acy;&kcy;&lcy;&yucy;&chcy;&iecy;&ncy;&icy;&iecy;</h2>
+<p>&Vcy; &dcy;&acy;&ncy;&ncy;&ocy;&jcy; &scy;&tcy;&acy;&tcy;&softcy;&iecy; &mcy;&ycy; &rcy;&acy;&zcy;&ocy;&bcy;&rcy;&acy;&lcy;&icy;, &kcy;&acy;&kcy; &scy; &pcy;&ocy;&mcy;&ocy;&shchcy;&softcy;&yucy; &khcy;&ucy;&kcy;&acy; &mcy;&ocy;&zhcy;&ncy;&ocy; &icy;&zcy;&mcy;&iecy;&ncy;&icy;&tcy;&softcy; &pcy;&ocy;&vcy;&iecy;&dcy;&iecy;&ncy;&icy;&iecy; &pcy;&rcy;&ocy;&gcy;&rcy;&acy;&mcy;&mcy;&ycy; &scy; &tcy;&ocy;&jcy; &icy;&lcy;&icy; &icy;&ncy;&ocy;&jcy; &tscy;&iecy;&lcy;&softcy;&yucy;. &Ocy;&dcy;&ncy;&acy;&kcy;&ocy; &ecy;&tcy;&ocy; &iecy;&shchcy;&iocy; &dcy;&acy;&lcy;&iecy;&kcy;&ocy; &ncy;&iecy; &vcy;&scy;&iocy;! &Mcy;&ycy; &mcy;&ocy;&zhcy;&iecy;&mcy; &ucy;&scy;&tcy;&acy;&ncy;&ocy;&vcy;&icy;&tcy;&softcy; &khcy;&ucy;&kcy; &ncy;&acy; &shcy;&iecy;&lcy;&lcy;&kcy;&ocy;&dcy;, &dcy;&iecy;&tcy;&iecy;&kcy;&tcy;&icy;&rcy;&ocy;&vcy;&acy;&tcy;&softcy; &khcy;&ucy;&kcy;&icy;, &pcy;&acy;&tcy;&chcy;&icy;&tcy;&softcy; &ocy;&tcy;&dcy;&iecy;&lcy;&softcy;&ncy;&ycy;&iecy; &ocy;&bcy;&lcy;&acy;&scy;&tcy;&icy; &pcy;&acy;&mcy;&yacy;&tcy;&icy; &bcy;&iecy;&zcy; &mcy;&ocy;&dcy;&icy;&fcy;&icy;&kcy;&acy;&tscy;&icy;&icy; &vcy;&scy;&iecy;&gcy;&ocy; &mcy;&iecy;&tcy;&ocy;&dcy;&acy; &vcy;&ocy; &vcy;&scy;&iecy;&khcy; &mcy;&iecy;&scy;&tcy;&acy;&khcy; &scy;&rcy;&acy;&zcy;&ucy; &icy; &iecy;&shchcy;&iecy; &mcy;&ncy;&ocy;&gcy;&ocy; &chcy;&iecy;&gcy;&ocy; &icy;&ncy;&tcy;&iecy;&rcy;&iecy;&scy;&ncy;&ocy;&gcy;&ocy;. &Ecy;&tcy;&ocy; &vcy;&scy;&iocy; &tcy;&iecy;&mcy;&ycy; &dcy;&lcy;&yacy; &scy;&lcy;&iecy;&dcy;&ucy;&yucy;&shchcy;&icy;&khcy; &scy;&tcy;&acy;&tcy;&iecy;&jcy;.</p>
+<p>&Acy; &pcy;&ocy;&kcy;&acy; &ncy;&iecy;&bcy;&ocy;&lcy;&softcy;&shcy;&acy;&yacy; &rcy;&acy;&zcy;&mcy;&icy;&ncy;&kcy;&acy; &dcy;&lcy;&yacy; &mcy;&ocy;&zcy;&gcy;&acy;: &chcy;&tcy;&ocy; &bcy;&ucy;&dcy;&iecy;&tcy;, &iecy;&scy;&lcy;&icy; &vcy; &mcy;&iecy;&tcy;&ocy;&dcy;&iecy; &dcy;&lcy;&yacy; &khcy;&ucy;&kcy;&acy; &vcy;&ycy;&zcy;&vcy;&acy;&tcy;&softcy; &khcy;&ucy;&kcy;&ncy;&ucy;&tcy;&ycy;&jcy; &mcy;&iecy;&tcy;&ocy;&dcy;? &Dcy;&lcy;&yacy; &pcy;&rcy;&ocy;&vcy;&iecy;&rcy;&kcy;&icy; &scy;&vcy;&ocy;&iecy;&jcy; &gcy;&icy;&pcy;&ocy;&tcy;&iecy;&zcy;&ycy; &vcy;&ycy; &mcy;&ocy;&zhcy;&iecy;&tcy;&iecy; &rcy;&acy;&scy;&kcy;&ocy;&mcy;&mcy;&iecy;&ncy;&tcy;&icy;&rcy;&ocy;&vcy;&acy;&tcy;&softcy; &scy;&tcy;&rcy;&ocy;&chcy;&kcy;&ucy; &icy;&zcy; &mcy;&iecy;&tcy;&ocy;&dcy;&acy; <code>HookedExit</code>.</p>
+    </div>
+    <!-- <hr>
+    <div class="condensed-font">
+    <br>
+    For comments, click the arrow at the top right corner.
+    <br><br>
+    </div> -->
+</section>
+
+	<hr>
+	<!-- Disqus -->
+	<div id="disqus_thread"></div>
+	<script>
+	var disqus_config = function() {
+		this.page.url = 'http://localhost:8000//memory-hooks-in-csharp.html';
+		this.page.identifier = 'memory-hooks-in-csharp.html';
+	};
+	(function() {
+		var d = document, s = d.createElement('script');
+		s.src = '//True.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+	</script>
+               <hr>
+           </article>
+       </div>
+   </div>  </body>
+</html>

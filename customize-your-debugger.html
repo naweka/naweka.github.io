@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Делаем работу с отладчиками удобнее  · 
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <!--<![endif]--> 
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Fira+Sans+Condensed&family=Cantarell&family=Noto+Sans:wght@300&family=Noto+Sans+Display:wght@200&display=swap" rel="stylesheet">
+
+
+    <link href="/theme/css/prism.css" rel="stylesheet" />
+        <link href="/theme/style.min.css?85c516a7" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+
+    <!-- <script src="https://hypothes.is/embed.js" async></script> -->
+
+
+ </head>
+
+<body>
+    <script src="/theme/css/prism.js"></script>
+<div id="layout" class="pure-g">
+
+<div class="sidebar pure-u-1 pure-u-md-5-24">
+    <nav id="sidebar">
+      <div class="sidebar-header">
+<div class="sitename"><a href="/">Reversing blog by weka</a></div>
+<div><small></small></div>
+<div>
+  <small>
+    <a href="/">Статьи</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/categories">Категории</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/tags">Тэги</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/archives">Архив записей</a>
+  </small>
+</div>
+<br>      </div>
+      <div class="sidebar-content">
+        <div class="toc"><div class="uppercase">Делаем работу с отладчиками удобнее</div>
+<br>
+<div class="col-lg-3 hidden-xs hidden-sm">
+    <div id="toc"><ul><li><a class="toc-href" href="#" title="&Dcy;&iecy;&lcy;&acy;&iecy;&mcy; &rcy;&acy;&bcy;&ocy;&tcy;&ucy; &scy; &ocy;&tcy;&lcy;&acy;&dcy;&chcy;&icy;&kcy;&acy;&mcy;&icy; &ucy;&dcy;&ocy;&bcy;&ncy;&iecy;&iecy;">&Dcy;&iecy;&lcy;&acy;&iecy;&mcy; &rcy;&acy;&bcy;&ocy;&tcy;&ucy; &scy; &ocy;&tcy;&lcy;&acy;&dcy;&chcy;&icy;&kcy;&acy;&mcy;&icy; &ucy;&dcy;&ocy;&bcy;&ncy;&iecy;&iecy;</a><ul><li><a class="toc-href" href="#pochemu" title="&gt; &Pcy;&ocy;&chcy;&iecy;&mcy;&ucy;?">&gt; &Pcy;&ocy;&chcy;&iecy;&mcy;&ucy;?</a></li><li><a class="toc-href" href="#kastomiziruem-dnspy" title="&gt; &Kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&icy;&rcy;&ucy;&iecy;&mcy; dnSpy">&gt; &Kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&icy;&rcy;&ucy;&iecy;&mcy; dnSpy</a></li><li><a class="toc-href" href="#kastomiziruem-ilspy" title="&gt; &Kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&icy;&rcy;&ucy;&iecy;&mcy; ilSpy">&gt; &Kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&icy;&rcy;&ucy;&iecy;&mcy; ilSpy</a></li><li><a class="toc-href" href="#podvodia-itogi" title="&gt; &Pcy;&ocy;&dcy;&vcy;&ocy;&dcy;&yacy; &icy;&tcy;&ocy;&gcy;&icy;">&gt; &Pcy;&ocy;&dcy;&vcy;&ocy;&dcy;&yacy; &icy;&tcy;&ocy;&gcy;&icy;</a></li></ul></li></ul></div>
+</div>
+</div>
+      </div>
+      <!-- <div id="footer"><small>Powered by <a href="http://getpelican.com/">Pelican</a> and <a href="https://github.com/out-of-cheese-error/astrochelys">Astrochelys</a></small></div> -->
+    </nav>
+</div>
+
+<nav class="phone-header">
+<div class="sitename"><a href="/">Reversing blog by weka</a></div>
+<div><small></small></div>
+<div>
+  <small>
+    <a href="/">Статьи</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/categories">Категории</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/tags">Тэги</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/archives">Архив записей</a>
+  </small>
+</div>
+<br></nav>
+
+       <div class="content pure-u-1 pure-u-md-1-2" >
+           <article style="width: 100%">
+<section id="content" class="body">
+    <div class="marginnote">
+      <hr>
+      <div class="article-information">
+        <div class="article-information-heading uppercase">Опубликовано</div>
+        <time class="published" datetime="2023-02-01T00:00:00+05:00">
+          Ср 01 Февраль 2023
+        </time>
+        <div class="article-information-heading uppercase">Категория</div>
+        <div>
+          <a href="/categories#Customization-ref" class="article-information-custom">&nbsp;Customization&nbsp;</a>
+        </div>
+        <div class="article-information-heading uppercase">Тэги</div>
+        <div>
+          <a href="/tags#dnspy-ref" class="article-information-custom">&nbsp;dnspy&nbsp;</a>
+          <a href="/tags#ilspy-ref" class="article-information-custom">&nbsp;ilspy&nbsp;</a>
+          <a href="/tags#debugger-ref" class="article-information-custom">&nbsp;debugger&nbsp;</a>
+          <a href="/tags#customization-ref" class="article-information-custom">&nbsp;customization&nbsp;</a>
+        </div>
+        </div>
+      <hr>
+    </div>
+    <header><a href="/customize-your-debugger.html" rel="bookmark" title="Permalink to Делаем работу с отладчиками удобнее">
+      <h1 class="article-title">
+        Делаем работу с отладчиками удобнее
+      </h1>
+      <h3>
+      </h3>
+      <hr>
+    </a></header>
+    <div class="article-content">
+      <h2 id="pochemu"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Pcy;&ocy;&chcy;&iecy;&mcy;&ucy;?</h2>
+<p>&Kcy;&ocy;&gcy;&dcy;&acy; &rcy;&acy;&zcy;&rcy;&acy;&bcy;&ocy;&tcy;&chcy;&icy;&kcy;&acy;&mcy; &pcy;&rcy;&icy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&jcy; &ucy;&dcy;&acy;&iocy;&tcy;&scy;&yacy; &scy;&dcy;&iecy;&lcy;&acy;&tcy;&softcy; &pcy;&rcy;&icy;&yacy;&tcy;&ncy;&ocy; &vcy;&ycy;&gcy;&lcy;&yacy;&dcy;&yacy;&shchcy;&icy;&jcy; &icy;&ncy;&tcy;&iecy;&rcy;&fcy;&iecy;&jcy;&scy; - &ecy;&tcy;&ocy; &zcy;&acy;&mcy;&iecy;&chcy;&acy;&tcy;&iecy;&lcy;&softcy;&ncy;&ocy;. &Ocy;&dcy;&ncy;&acy;&kcy;&ocy;, &ncy;&iecy; &vcy;&scy;&iecy;&gcy;&dcy;&acy; &ecy;&tcy;&ocy;&gcy;&ocy; &ucy;&dcy;&acy;&iecy;&tcy;&scy;&yacy; &dcy;&ocy;&scy;&tcy;&icy;&chcy;&softcy;. &Vcy;&ocy;&zcy;&ncy;&icy;&kcy;&acy;&iecy;&tcy; &kcy;&lcy;&acy;&scy;&scy;&icy;&chcy;&iecy;&scy;&kcy;&acy;&yacy; &pcy;&rcy;&ocy;&bcy;&lcy;&iecy;&mcy;&acy; <em>&ldquo;&yucy;&zcy;&iecy;&rcy;&acy;&rdquo;</em>: &pcy;&ocy;&lcy;&softcy;&zcy;&ocy;&vcy;&acy;&tcy;&iecy;&lcy;&yacy; &ncy;&iecy; &ucy;&scy;&tcy;&rcy;&acy;&icy;&vcy;&acy;&iecy;&tcy; &rcy;&iecy;&shcy;&iecy;&ncy;&icy;&iecy;, &kcy;&ocy;&tcy;&ocy;&rcy;&ocy;&iecy; &pcy;&ocy;&kcy;&acy;&zcy;&acy;&lcy;&ocy;&scy;&softcy; &acy;&vcy;&tcy;&ocy;&rcy;&acy;&mcy; &ocy;&pcy;&tcy;&icy;&mcy;&acy;&lcy;&softcy;&ncy;&ycy;&mcy;, &icy; &ocy;&ncy; &khcy;&ocy;&chcy;&iecy;&tcy; &chcy;&tcy;&ocy;-&tcy;&ocy; &pcy;&ocy;&mcy;&iecy;&ncy;&yacy;&tcy;&softcy;. &Ocy;&scy;&ocy;&bcy;&iecy;&ncy;&ncy;&ocy; &scy;&icy;&lcy;&softcy;&ncy;&ocy; &ecy;&tcy;&acy; &pcy;&rcy;&ocy;&bcy;&lcy;&iecy;&mcy;&acy; &rcy;&acy;&scy;&pcy;&rcy;&ocy;&scy;&tcy;&rcy;&acy;&ncy;&yacy;&iecy;&tcy;&scy;&yacy; &ncy;&acy; &vcy;&icy;&zcy;&ucy;&acy;&lcy;&softcy;&ncy;&ucy;&yucy; &scy;&ocy;&scy;&tcy;&acy;&vcy;&lcy;&yacy;&yucy;&shchcy;&ucy;&yucy;.</p>
+<p>&KHcy;&ocy;&tcy;&yacy;, &rcy;&acy;&dcy;&icy; &scy;&pcy;&rcy;&acy;&vcy;&iecy;&dcy;&lcy;&icy;&vcy;&ocy;&scy;&tcy;&icy;, &scy;&tcy;&ocy;&icy;&tcy; &ocy;&tcy;&mcy;&iecy;&tcy;&icy;&tcy;&softcy;, &chcy;&tcy;&ocy; &ncy;&iecy;&kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&khcy; &vcy;&pcy;&ocy;&lcy;&ncy;&iecy; &ucy;&scy;&tcy;&rcy;&acy;&icy;&vcy;&acy;&iecy;&tcy; &tcy;&ocy;, &chcy;&tcy;&ocy; &ocy;&ncy;&icy; &icy;&mcy;&iecy;&yucy;&tcy;. &Ncy;&ocy; &vcy; &ecy;&tcy;&ocy;&jcy; &scy;&tcy;&acy;&tcy;&softcy;&iecy; &rcy;&iecy;&chcy;&softcy; &ncy;&iecy; &ocy; &ncy;&icy;&khcy; :)</p>
+<h2 id="kastomiziruem-dnspy"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&icy;&rcy;&ucy;&iecy;&mcy; dnSpy</h2>
+<p>&Ncy;&acy;&chcy;&ncy;&iocy;&mcy; &scy;, &pcy;&ocy;&zhcy;&acy;&lcy;&ucy;&jcy;, &ocy;&scy;&ncy;&ocy;&vcy;&ncy;&ocy;&gcy;&ocy; &icy; &icy;&zcy;&lcy;&yucy;&bcy;&iecy;&ncy;&ncy;&ocy;&gcy;&ocy; &mcy;&ncy;&ocy;&gcy;&icy;&mcy;&icy; &icy;&ncy;&scy;&tcy;&rcy;&ucy;&mcy;&iecy;&ncy;&tcy;&acy; &dcy;&lcy;&yacy; &dcy;&iecy;&bcy;&acy;&gcy;&gcy;&icy;&ncy;&gcy;&acy; - <code>dnSpy</code>. &Icy;&zcy; &kcy;&ocy;&rcy;&ocy;&bcy;&kcy;&icy; &ocy;&ncy; &ucy;&zhcy;&iecy; &pcy;&ocy;&dcy;&dcy;&iecy;&rcy;&zhcy;&icy;&vcy;&acy;&iecy;&tcy; &scy;&mcy;&iecy;&ncy;&ucy; &tcy;&iecy;&mcy; &icy; &shcy;&rcy;&icy;&fcy;&tcy;&acy;, &vcy;&ocy;&tcy; &tcy;&ocy;&lcy;&softcy;&kcy;&ocy; &icy;&khcy; &mcy;&acy;&lcy;&ocy;&vcy;&acy;&tcy;&ocy;. &Scy; &pcy;&ocy;&mcy;&ocy;&shchcy;&softcy;&bcy;&yucy; &icy;&ncy;&scy;&tcy;&rcy;&ucy;&mcy;&iecy;&ncy;&tcy;&acy; <a href="https://github.com/HoLLy-HaCKeR/dnSpyThemeGenerator">dnSpyThemeGenerator</a> &ucy; &mcy;&iecy;&ncy;&yacy; &pcy;&ocy;&lcy;&ucy;&chcy;&icy;&lcy;&ocy;&scy;&softcy; &scy;&kcy;&ocy;&ncy;&vcy;&iecy;&rcy;&tcy;&icy;&rcy;&ocy;&vcy;&acy;&tcy;&softcy; &ncy;&iecy;&bcy;&ocy;&lcy;&softcy;&shcy;&ocy;&iecy; &kcy;&ocy;&lcy;&icy;&chcy;&iecy;&scy;&tcy;&vcy;&ocy; &tcy;&iecy;&mcy; <em>(&dcy;&acy;, &yacy; &fcy;&acy;&ncy;&acy;&tcy; &tcy;&iocy;&mcy;&ncy;&ycy;&khcy; &tcy;&iecy;&mcy; :D)</em> :</p>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/3.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/3.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">GitHub Dark</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/4.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/4.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Solarized Dark</p>
+</div>
+</div>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/dracula.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/dracula.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Dracula</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/Atom One Dark.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Atom One Dark.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Atom One Dark</p>
+</div>
+</div>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/Night Owl.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Night Owl.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Night Owl</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/Arc Dark.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Arc Dark.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Arc Dark</p>
+</div>
+</div>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/Monokai.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Monokai.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Monokai</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/Material Palenight.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Material Palenight.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Material Palenight</p>
+</div>
+</div>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/Material Deep Ocean.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Material Deep Ocean.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Material Deep Ocean</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/Material Oceanic.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Material Oceanic.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Material Oceanic</p>
+</div>
+</div>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/Moonlight.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Moonlight.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Moonlight</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/Material Darker.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Material Darker.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Material Darker</p>
+</div>
+</div>
+<p>&Ncy;&iecy; &ocy;&bcy;&ocy;&jcy;&dcy;&ucy; &scy;&tcy;&ocy;&rcy;&ocy;&ncy;&ocy;&jcy; &tcy;&acy;&kcy;&zhcy;&iecy; &shcy;&rcy;&icy;&fcy;&tcy;&ycy;, &scy;&tcy;&acy;&ncy;&dcy;&acy;&rcy;&tcy;&ncy;&ycy;&jcy; <code>Consolas</code> &kcy;&ocy;&ncy;&iecy;&chcy;&ncy;&ocy; &khcy;&ocy;&rcy;&ocy;&shcy;, &ncy;&ocy; &yacy; &scy;&ocy;&vcy;&iecy;&tcy;&ucy;&yucy; &shcy;&rcy;&icy;&fcy;&tcy;&ycy; &scy; &bcy;&ocy;&lcy;&iecy;&iecy; &ucy;&zcy;&kcy;&icy;&mcy;&icy; &bcy;&ucy;&kcy;&vcy;&acy;&mcy;&icy; <em>(&kcy;&acy;&kcy; JetBrains Mono)</em>, &ocy;&ncy;&icy; &pcy;&rcy;&icy;&yacy;&tcy;&ncy;&iecy;&iecy; &dcy;&lcy;&yacy; &gcy;&lcy;&acy;&zcy;&acy;, &kcy;&ocy;&gcy;&dcy;&acy; &vcy;&ycy; &icy;&zcy;&ucy;&chcy;&acy;&iecy;&tcy;&iecy; &kcy;&ocy;&dcy;. &Vcy;&ocy;&tcy; &ncy;&iecy;&scy;&kcy;&ocy;&lcy;&softcy;&kcy;&ocy; &shcy;&rcy;&icy;&fcy;&tcy;&ocy;&vcy;:</p>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/Consolas.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Consolas.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Consolas (&pcy;&ocy; &ucy;&mcy;&ocy;&lcy;&chcy;&acy;&ncy;&icy;&yucy;)</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/JetBrains Mono.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/JetBrains Mono.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">JetBrains Mono (&scy; &lcy;&icy;&gcy;&acy;&tcy;&ucy;&rcy;&acy;&mcy;&icy;)</p>
+</div>
+</div>
+<div style="padding-bottom: 10px; text-align: center; display: flex">
+<div style="float:left; padding-right: 7px">
+<a href="/images/customize-your-debugger/Fira Code.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Fira Code.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Fira Code (&scy; &lcy;&icy;&gcy;&acy;&tcy;&ucy;&rcy;&acy;&mcy;&icy;)</p>
+</div>
+<div style="float:right; padding-left: 7px">
+<a href="/images/customize-your-debugger/Ubuntu Mono.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/Ubuntu Mono.PNG"/></a>
+<br/><p class="light-dark-text" style="font-size: 16px;">Ubuntu Mono</p>
+</div>
+</div>
+<p>&IEcy;&shchcy;&iocy; &mcy;&ocy;&zhcy;&ncy;&ocy; &ucy;&scy;&tcy;&acy;&ncy;&ocy;&vcy;&icy;&tcy;&softcy; &fcy;&ocy;&ncy;&ocy;&vcy;&ocy;&iecy; &icy;&zcy;&ocy;&bcy;&rcy;&acy;&zhcy;&iecy;&ncy;&icy;&iecy;:</p>
+<div style="text-align:center"><a href="/images/customize-your-debugger/backimg.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/backimg.PNG"/></a><br/><p class="light-dark-text" style="font-size: 16px;">&Ncy;&acy;&scy;&tcy;&rcy;&ocy;&jcy;&kcy;&icy; &fcy;&ocy;&ncy;&ocy;&vcy;&ocy;&gcy;&ocy; &icy;&zcy;&ocy;&bcy;&rcy;&acy;&zhcy;&iecy;&ncy;&icy;&yacy;</p></div>
+<p>&Vcy; &ncy;&acy;&scy;&tcy;&rcy;&ocy;&jcy;&kcy;&acy;&khcy; &dcy;&iecy;&kcy;&ocy;&mcy;&pcy;&icy;&lcy;&yacy;&tcy;&ocy;&rcy;&acy; &tcy;&acy;&kcy;&zhcy;&iecy; &mcy;&ocy;&zhcy;&ncy;&ocy; &ncy;&acy;&jcy;&tcy;&icy; &mcy;&ncy;&ocy;&gcy;&ocy; &pcy;&ocy;&lcy;&iecy;&zcy;&ncy;&ycy;&khcy; &chcy;&iecy;&kcy;&bcy;&ocy;&kcy;&scy;&ocy;&vcy;, &kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&iecy; &mcy;&ocy;&gcy;&ucy;&tcy; &scy;&dcy;&iecy;&lcy;&acy;&tcy;&softcy; &acy;&ncy;&acy;&lcy;&icy;&zcy; &bcy;&ocy;&lcy;&iecy;&iecy; &pcy;&rcy;&icy;&yacy;&tcy;&ncy;&ycy;&mcy;. &Ncy;&acy;&pcy;&rcy;&icy;&mcy;&iecy;&rcy;, &vcy; &rcy;&iecy;&zhcy;&icy;&mcy;&iecy; &pcy;&rcy;&ocy;&scy;&mcy;&ocy;&tcy;&rcy;&acy; IL &dcy;&lcy;&yacy; &mcy;&iecy;&ncy;&yacy; &ncy;&iecy; &tcy;&acy;&kcy; &vcy;&acy;&zhcy;&ncy;&ocy; &zcy;&ncy;&acy;&tcy;&softcy; &scy;&mcy;&iecy;&shchcy;&iecy;&ncy;&icy;&yacy; &icy;&ncy;&scy;&tcy;&rcy;&ucy;&kcy;&tscy;&icy;&jcy;, &ncy;&ocy;&mcy;&iecy;&rcy;&acy; &scy;&tcy;&rcy;&ocy;&kcy; &vcy; &fcy;&acy;&jcy;&lcy;&iecy; &icy; &pcy;&rcy;&ocy;&chcy;&iecy;&iecy;. &YAcy; &mcy;&acy;&kcy;&scy;&icy;&mcy;&acy;&lcy;&softcy;&ncy;&ocy; &ucy;&pcy;&rcy;&ocy;&scy;&tcy;&icy;&lcy; &scy;&ocy;&dcy;&iecy;&rcy;&zhcy;&icy;&mcy;&ocy;&iecy;:</p>
+<div style="text-align:center"><a href="/images/customize-your-debugger/ilview.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/ilview.PNG"/></a><br/><p class="light-dark-text" style="font-size: 16px;">&Rcy;&iecy;&zhcy;&icy;&mcy; &ocy;&tcy;&ocy;&bcy;&rcy;&acy;&zhcy;&iecy;&ncy;&icy;&yacy; IL</p></div>
+<p>&Rcy;&iecy;&zcy;&yucy;&mcy;&icy;&rcy;&ucy;&yacy;, dnSpy &pcy;&ocy;&dcy;&dcy;&iecy;&rcy;&zhcy;&icy;&vcy;&acy;&iecy;&tcy; &mcy;&ncy;&ocy;&zhcy;&iecy;&scy;&tcy;&vcy;&ocy; &ncy;&acy;&scy;&tcy;&rcy;&ocy;&iecy;&kcy; &icy; &iecy;&gcy;&ocy; &dcy;&ocy;&scy;&tcy;&acy;&tcy;&ocy;&chcy;&ncy;&ocy; &lcy;&iecy;&gcy;&kcy;&ocy; &mcy;&ocy;&zhcy;&ncy;&ocy; &kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&icy;&rcy;&ocy;&vcy;&acy;&tcy;&softcy;.</p>
+<h2 id="kastomiziruem-ilspy"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&icy;&rcy;&ucy;&iecy;&mcy; ilSpy</h2>
+<p>&Mcy;&ncy;&ocy;&gcy;&ocy; &lcy;&yucy;&dcy;&iecy;&jcy; &vcy;&ocy;&kcy;&rcy;&ucy;&gcy; &mcy;&iecy;&ncy;&yacy; &pcy;&ocy;&chcy;&iecy;&mcy;&ucy;-&tcy;&ocy; &icy;&gcy;&ncy;&ocy;&rcy;&icy;&rcy;&ucy;&yucy;&tcy; &scy;&ucy;&shchcy;&iecy;&scy;&tcy;&vcy;&ocy;&vcy;&acy;&ncy;&icy;&iecy; <code>ilSpy</code>, &ncy;&iecy;&scy;&mcy;&ocy;&tcy;&rcy;&yacy; &ncy;&acy; &tcy;&ocy;, &chcy;&tcy;&ocy; &ecy;&tcy;&ocy; &khcy;&ocy;&tcy;&softcy; &icy; &bcy;&ocy;&lcy;&iecy;&iecy; &scy;&tcy;&acy;&rcy;&ycy;&jcy; &icy;&ncy;&scy;&tcy;&rcy;&ucy;&mcy;&iecy;&ncy;&tcy;, &ucy; &kcy;&ocy;&tcy;&ocy;&rcy;&ocy;&gcy;&ocy; &ncy;&iecy;&tcy; &ocy;&tcy;&lcy;&acy;&dcy;&chcy;&icy;&kcy;&acy; &icy; &dcy;&rcy;&ucy;&gcy;&icy;&khcy; &pcy;&ocy;&lcy;&iecy;&zcy;&ncy;&ycy;&khcy; &vcy;&iecy;&shchcy;&iecy;&jcy; &icy;&zcy; <code>dnSpy</code>, &iecy;&gcy;&ocy; &dcy;&vcy;&icy;&zhcy;&ocy;&kcy; &dcy;&iecy;&kcy;&ocy;&mcy;&pcy;&icy;&lcy;&yacy;&tscy;&icy;&icy; &ucy;&mcy;&iecy;&iecy;&tcy; &dcy;&iecy;&lcy;&acy;&tcy;&softcy; &icy;&ncy;&tcy;&iecy;&rcy;&iecy;&scy;&ncy;&ycy;&iecy; &tcy;&rcy;&yucy;&kcy;&icy;, &rcy;&iecy;&chcy;&icy; &ocy; &kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&khcy; &vcy; dnSpy &icy;&dcy;&tcy;&icy; &ncy;&iecy; &mcy;&ocy;&zhcy;&iecy;&tcy;.</p>
+<p>&Tcy;&iecy;&pcy;&iecy;&rcy;&softcy; &dcy;&acy;&vcy;&acy;&jcy;&tcy;&iecy; &pcy;&ocy;&scy;&mcy;&ocy;&tcy;&rcy;&icy;&mcy;, &chcy;&tcy;&ocy; &icy;&zcy; &kcy;&acy;&scy;&tcy;&ocy;&mcy;&icy;&zcy;&acy;&tscy;&icy;&icy; &ncy;&acy;&mcy; &dcy;&ocy;&scy;&tcy;&ucy;&pcy;&ncy;&ocy;:</p>
+<div style="text-align:center"><a href="/images/customize-your-debugger/ils_settings.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/ils_settings.PNG"/></a><br/><p class="light-dark-text" style="font-size: 16px;">&Ocy;&kcy;&ncy;&ocy; &ncy;&acy;&scy;&tcy;&rcy;&ocy;&iecy;&kcy; ilSpy</p></div>
+<p>&Icy;&ncy;&tcy;&iecy;&rcy;&fcy;&iecy;&jcy;&scy; &zcy;&dcy;&iecy;&scy;&softcy; &ocy;&tcy;&lcy;&icy;&chcy;&acy;&iecy;&tcy;&scy;&yacy; &ocy;&tcy; dnSpy. &Mcy;&ycy; &mcy;&ocy;&zhcy;&iecy;&mcy; &ucy;&pcy;&rcy;&acy;&vcy;&lcy;&yacy;&tcy;&softcy; &dcy;&iecy;&kcy;&ocy;&mcy;&pcy;&icy;&lcy;&yacy;&tscy;&icy;&iecy;&jcy; &kcy;&acy;&zhcy;&dcy;&ocy;&jcy; &fcy;&icy;&chcy;&icy; &icy;&zcy; &kcy;&acy;&zhcy;&dcy;&ocy;&jcy; &vcy;&iecy;&rcy;&scy;&icy;&icy; &yacy;&zcy;&ycy;&kcy;&acy;, &tcy;&acy;&kcy; &zhcy;&iecy; &iecy;&scy;&tcy;&softcy; &ncy;&acy;&scy;&tcy;&rcy;&ocy;&jcy;&kcy;&icy; &ecy;&kcy;&scy;&pcy;&ocy;&rcy;&tcy;&acy; &vcy; &pcy;&rcy;&ocy;&iecy;&kcy;&tcy; <em>(&kcy;&scy;&tcy;&acy;&tcy;&icy;, &zcy;&dcy;&iecy;&scy;&softcy; &ocy;&ncy; &ecy;&kcy;&scy;&pcy;&ocy;&rcy;&tcy;&icy;&rcy;&ucy;&iecy;&tcy;&scy;&yacy; &bcy;&iecy;&zcy; *.sln!)</em>, &acy; &tcy;&acy;&kcy;&zhcy;&iecy; &ncy;&iecy;&mcy;&ncy;&ocy;&gcy;&ocy; &ncy;&acy;&scy;&tcy;&rcy;&ocy;&iecy;&kcy; &dcy;&lcy;&yacy; &scy;&acy;&mcy;&ocy;&gcy;&ocy; &dcy;&iecy;&kcy;&ocy;&mcy;&pcy;&icy;&lcy;&yacy;&tcy;&ocy;&rcy;&acy;.</p>
+<p>&SHcy;&rcy;&icy;&fcy;&tcy; &pcy;&ocy;&mcy;&iecy;&ncy;&yacy;&tcy;&softcy; &dcy;&ocy;&scy;&tcy;&acy;&tcy;&ocy;&chcy;&ncy;&ocy; &pcy;&rcy;&ocy;&scy;&tcy;&ocy;, &ncy;&ocy; &gcy;&dcy;&iecy; &zhcy;&iecy; &pcy;&ocy;&mcy;&iecy;&ncy;&yacy;&tcy;&softcy; &tscy;&vcy;&iecy;&tcy;&ocy;&vcy;&ucy;&yucy; &pcy;&acy;&lcy;&icy;&tcy;&rcy;&ucy;? &CHcy;&iecy;&scy;&tcy;&ncy;&ocy; &gcy;&ocy;&vcy;&ocy;&rcy;&yacy;, &mcy;&ncy;&iecy; &ocy;&chcy;&iecy;&ncy;&softcy; &ncy;&iecy; &pcy;&ocy;&ncy;&rcy;&acy;&vcy;&icy;&lcy;&acy;&scy;&softcy; &scy;&tcy;&acy;&ncy;&dcy;&acy;&rcy;&tcy;&ncy;&acy;&yacy; &zcy;&iecy;&lcy;&iocy;&ncy;&ocy;-&kcy;&ocy;&rcy;&icy;&chcy;&ncy;&iecy;&vcy;&acy;&yacy; &tcy;&iecy;&mcy;&acy; ilSpy, &yacy; &scy;&rcy;&acy;&zcy;&ucy; &zcy;&acy;&khcy;&ocy;&tcy;&iecy;&lcy; &iecy;&iocy; &pcy;&ocy;&mcy;&iecy;&ncy;&yacy;&tcy;&softcy;. &Ocy;&kcy;&acy;&zcy;&ycy;&vcy;&acy;&iecy;&tcy;&scy;&yacy;, ilSpy &ncy;&iecy; &pcy;&rcy;&iecy;&dcy;&ocy;&scy;&tcy;&acy;&vcy;&lcy;&yacy;&iecy;&tcy; &vcy;&ocy;&zcy;&mcy;&ocy;&zhcy;&ncy;&ocy;&scy;&tcy;&icy; &mcy;&iecy;&ncy;&yacy;&tcy;&softcy; &tcy;&iecy;&mcy;&ucy; &vcy; &pcy;&acy;&rcy;&ucy; &kcy;&lcy;&icy;&kcy;&ocy;&vcy;, &pcy;&ocy;&ecy;&tcy;&ocy;&mcy;&ucy; &pcy;&rcy;&icy;&dcy;&iecy;&tcy;&scy;&yacy; &scy;&ocy;&zcy;&dcy;&acy;&vcy;&acy;&tcy;&softcy; &iecy;&iocy; &scy;&acy;&mcy;&ocy;&scy;&tcy;&ocy;&yacy;&tcy;&iecy;&lcy;&softcy;&ncy;&ocy;. &Vcy;&ocy;&tcy;, &chcy;&tcy;&ocy; &ucy; &mcy;&iecy;&ncy;&yacy; &pcy;&ocy;&lcy;&ucy;&chcy;&icy;&lcy;&ocy;&scy;&softcy;:</p>
+<div style="text-align:center"><a href="/images/customize-your-debugger/ils_mt.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/ils_mt.PNG"/></a><br/><p class="light-dark-text" style="font-size: 16px;">&Mcy;&ocy;&yacy; &tscy;&vcy;&iecy;&tcy;&ocy;&vcy;&acy;&yacy; &pcy;&acy;&lcy;&icy;&tcy;&rcy;&acy; &vcy; ilSpy</p></div>
+<p>&Dcy;&acy;&vcy;&acy;&jcy;&tcy;&iecy; &yacy; &rcy;&acy;&scy;&scy;&kcy;&acy;&zhcy;&ucy;, &kcy;&acy;&kcy; &mcy;&ncy;&iecy; &ecy;&tcy;&ocy; &ucy;&dcy;&acy;&lcy;&ocy;&scy;&softcy;.
+&Vcy;&scy;&iecy; &tcy;&iecy;&mcy;&ycy; &ncy;&acy;&khcy;&ocy;&dcy;&yacy;&tcy;&scy;&yacy; &vcy;&ncy;&ucy;&tcy;&rcy;&icy; <code>ilSpy.dll</code>, &vcy; &rcy;&iecy;&scy;&ucy;&rcy;&scy;&acy;&khcy;. &Kcy; &scy;&ocy;&zhcy;&acy;&lcy;&iecy;&ncy;&icy;&yucy;, &icy;&ncy;&scy;&tcy;&rcy;&ucy;&mcy;&iecy;&ncy;&tcy;&ocy;&vcy; &yacy; &ncy;&iecy; &ncy;&acy;&shcy;&iecy;&lcy;, &pcy;&ocy;&ecy;&tcy;&ocy;&mcy;&ucy; &pcy;&rcy;&icy;&shcy;&lcy;&ocy;&scy;&softcy; &dcy;&iecy;&lcy;&acy;&tcy;&softcy; &vcy;&scy;&iocy; &rcy;&ucy;&kcy;&acy;&mcy;&icy; &vcy; &tcy;&iecy;&kcy;&scy;&tcy;&ocy;&vcy;&ocy;&mcy; &rcy;&iecy;&dcy;&acy;&kcy;&tcy;&ocy;&rcy;&iecy;. &Pcy;&rcy;&ocy;&tscy;&iecy;&scy;&scy; &tcy;&rcy;&ucy;&dcy;&ocy;&iocy;&mcy;&kcy;&icy;&jcy;, &ncy;&ocy; &rcy;&iecy;&zcy;&ucy;&lcy;&softcy;&tcy;&acy;&tcy; &iecy;&gcy;&ocy; &ocy;&pcy;&rcy;&acy;&vcy;&dcy;&ycy;&vcy;&acy;&iecy;&tcy;.</p>
+<div style="text-align:center"><a href="/images/customize-your-debugger/ils_tut.PNG"><img alt="a" class="img-resize" src="/images/customize-your-debugger/ils_tut.PNG"/></a><br/><p class="light-dark-text" style="font-size: 16px;">&Rcy;&acy;&scy;&pcy;&ocy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&iecy; &fcy;&acy;&jcy;&lcy;&ocy;&vcy; &tcy;&iecy;&mcy; &vcy; &rcy;&iecy;&scy;&ucy;&rcy;&scy;&acy;&khcy; ilSpy.dll</p></div>
+<p>&Kcy;&scy;&tcy;&acy;&tcy;&icy;, ilSpy &pcy;&ocy; &gcy;&ocy;&rcy;&yacy;&chcy;&iecy;&jcy; &kcy;&lcy;&acy;&vcy;&icy;&shcy;&iecy; <code>F5</code> &pcy;&iecy;&rcy;&iecy;&zcy;&acy;&gcy;&rcy;&ucy;&zhcy;&acy;&iecy;&tcy; &scy;&bcy;&ocy;&rcy;&kcy;&ucy; <em>(&vcy; dnSpy &ecy;&tcy;&ocy; &ncy;&ucy;&zhcy;&ncy;&ocy; &dcy;&iecy;&lcy;&acy;&tcy;&softcy; &rcy;&ucy;&kcy;&acy;&mcy;&icy;)</em>, &chcy;&tcy;&ocy; &mcy;&ocy;&zhcy;&iecy;&tcy; &bcy;&ycy;&tcy;&softcy; &ocy;&chcy;&iecy;&ncy;&softcy; &ucy;&dcy;&ocy;&bcy;&ncy;&ocy; &vcy; &ncy;&iecy;&kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&khcy; &scy;&lcy;&ucy;&chcy;&acy;&yacy;&khcy;.</p>
+<h2 id="podvodia-itogi"><p class="colored-text-1" style="font-size: 32px;">&gt;</p> &Pcy;&ocy;&dcy;&vcy;&ocy;&dcy;&yacy; &icy;&tcy;&ocy;&gcy;&icy;</h2>
+<p>&Ocy;&bcy;&ocy;&icy;&mcy; &icy;&ncy;&scy;&tcy;&rcy;&ucy;&mcy;&iecy;&ncy;&tcy;&acy;&mcy;, &kcy;&acy;&kcy; <code>dnSpy</code>, &tcy;&acy;&kcy; &icy; <code>ilSpy</code>, &mcy;&ocy;&zhcy;&ncy;&ocy; &pcy;&rcy;&icy;&dcy;&acy;&tcy;&softcy; &vcy;&ncy;&iecy;&shcy;&ncy;&icy;&jcy; &vcy;&icy;&dcy; &pcy;&ocy; &scy;&vcy;&ocy;&iecy;&mcy;&ucy; &zhcy;&iecy;&lcy;&acy;&ncy;&icy;&yucy;, &chcy;&tcy;&ocy;&bcy;&ycy; &scy;&dcy;&iecy;&lcy;&acy;&tcy;&softcy; &rcy;&acy;&bcy;&ocy;&tcy;&ucy; &scy; &ncy;&icy;&mcy;&icy; &ncy;&iecy;&mcy;&ncy;&ocy;&gcy;&ocy; &bcy;&ocy;&lcy;&iecy;&iecy; &kcy;&ocy;&mcy;&fcy;&ocy;&rcy;&tcy;&ncy;&ocy;&jcy;. &Kcy;&scy;&tcy;&acy;&tcy;&icy;, &yacy; &bcy;&ycy;&lcy; &ucy;&dcy;&icy;&vcy;&lcy;&iecy;&ncy;, &ncy;&ocy; &ncy;&iecy;&kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&iecy; &ncy;&iecy; &zcy;&ncy;&acy;&yucy;&tcy;, &chcy;&tcy;&ocy; &icy; &tcy;&acy;&mcy;, &icy; &tcy;&acy;&mcy; &mcy;&ocy;&zhcy;&ncy;&ocy; &vcy;&kcy;&lcy;&yucy;&chcy;&icy;&tcy;&softcy; <code>Shell Extension</code>, &chcy;&tcy;&ocy;&bcy;&ycy; &ocy;&tcy;&kcy;&rcy;&ycy;&vcy;&acy;&tcy;&softcy; &fcy;&acy;&jcy;&lcy; &vcy; &ncy;&ucy;&zhcy;&ncy;&ocy;&mcy; &ocy;&tcy;&lcy;&acy;&dcy;&chcy;&icy;&kcy;&iecy; &icy;&zcy; &kcy;&ocy;&ncy;&tcy;&iecy;&kcy;&scy;&tcy;&ncy;&ocy;&gcy;&ocy; &mcy;&iecy;&ncy;&yucy; &fcy;&acy;&jcy;&lcy;&acy;. </p>
+<p>&Scy;&kcy;&acy;&chcy;&acy;&tcy;&softcy; &tcy;&iecy;&mcy;&ycy; &icy; &shcy;&rcy;&icy;&fcy;&tcy;&ycy; &mcy;&ocy;&zhcy;&ncy;&ocy;, &ncy;&acy;&zhcy;&acy;&vcy; <a download="" href="/files/customize-your-debugger/themes.7z">&scy;&yucy;&dcy;&acy;</a>.</p>
+    </div>
+    <!-- <hr>
+    <div class="condensed-font">
+    <br>
+    For comments, click the arrow at the top right corner.
+    <br><br>
+    </div> -->
+</section>
+
+	<hr>
+	<!-- Disqus -->
+	<div id="disqus_thread"></div>
+	<script>
+	var disqus_config = function() {
+		this.page.url = 'http://localhost:8000//customize-your-debugger.html';
+		this.page.identifier = 'customize-your-debugger.html';
+	};
+	(function() {
+		var d = document, s = d.createElement('script');
+		s.src = '//True.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+	</script>
+               <hr>
+           </article>
+       </div>
+   </div>  </body>
+</html>
